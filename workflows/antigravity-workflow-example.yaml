@@ -1,0 +1,46 @@
+# Simple Workflow Example for Antigravity
+
+```yaml
+name: skills-sync
+
+description: Sync target GitHub skill repos and validate them.
+
+trigger:
+  type: schedule
+  cron: "0 0 * * 0"
+  or_manual: true
+
+jobs:
+  sync:
+    steps:
+      - name: Fetch mattpocock engineering skills
+        call: github-skills-manager
+        with:
+          repo: mattpocock/skills
+          path: skills/engineering
+
+      - name: Fetch anthropics skill repo
+        call: github-skills-manager
+        with:
+          repo: anthropics/skills
+          path: skills
+
+      - name: Fetch cyber skills
+        call: github-skills-manager
+        with:
+          repo: mukul975/Anthropic-Cybersecurity-Skills
+          path: skills
+
+      - name: Fetch awesome-claude-skills
+        call: github-skills-manager
+        with:
+          repo: ComposioHQ/awesome-claude-skills
+          path: .
+
+      - name: Validate skill inventory
+        call: skills-orchestrator
+        with:
+          action: list
+          repo: mattpocock/skills
+          path: skills
+```
