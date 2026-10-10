@@ -1,0 +1,40 @@
+name: Skills Sync to Antigravity
+
+description: Auto-import skill repositories and validate them.
+
+trigger:
+  type: schedule
+  cron: "0 0 * * 0"
+  or_manual: true
+
+jobs:
+  sync-skills:
+    steps:
+      - name: Import mattpocock/skills engineering
+        call: github-skills-manager
+        with:
+          repo: mattpocock/skills
+          path: skills/engineering
+
+      - name: Import mattpocock/skills productivity
+        call: github-skills-manager
+        with:
+          repo: mattpocock/skills
+          path: skills/productivity
+
+      - name: Import anthropics/skills
+        call: github-skills-manager
+        with:
+          repo: anthropics/skills
+          path: skills
+
+      - name: Import awesome-claude-skills
+        call: github-skills-manager
+        with:
+          repo: ComposioHQ/awesome-claude-skills
+          path: .
+
+      - name: Validate skill inventory
+        call: skills-validator
+        with:
+          mode: summary

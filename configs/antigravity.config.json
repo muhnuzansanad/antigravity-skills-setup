@@ -1,0 +1,77 @@
+{
+  "name": "antigravity-skills-setup",
+  "version": "1.0.0",
+  "description": "Setup package for connecting GitHub skills repos to Google Antigravity",
+  "workspace": "your-workspace-id",
+  "skills": {
+    "sources": [
+      {
+        "name": "mattpocock/skills",
+        "type": "github",
+        "repo": "mattpocock/skills",
+        "path": "skills/engineering",
+        "category": "Engineering",
+        "sync": "auto",
+        "models": ["claude-opus-5-5", "claude-sonnet-5-5"]
+      },
+      {
+        "name": "mattpocock/skills-productivity",
+        "type": "github",
+        "repo": "mattpocock/skills",
+        "path": "skills/productivity",
+        "category": "Productivity",
+        "sync": "auto",
+        "models": ["claude-opus-5-5"]
+      },
+      {
+        "name": "anthropics/skills",
+        "type": "github",
+        "repo": "anthropics/skills",
+        "path": "skills",
+        "category": "Document Processing",
+        "sync": "auto",
+        "models": ["claude-opus-5-5"]
+      },
+      {
+        "name": "awesome-claude-skills",
+        "type": "github",
+        "repo": "ComposioHQ/awesome-claude-skills",
+        "path": "./",
+        "category": "App Automation",
+        "sync": "auto",
+        "models": ["claude-opus-5-5", "claude-sonnet-5-5"]
+      },
+      {
+        "name": "cybersecurity-skills",
+        "type": "github",
+        "repo": "mukul975/Anthropic-Cybersecurity-Skills",
+        "path": "skills",
+        "category": "Cybersecurity",
+        "sync": "auto",
+        "models": ["claude-opus-5-5"]
+      }
+    ],
+    "defaults": {
+      "model": "claude-opus-5-5",
+      "temperature": 0.7,
+      "max_tokens": 4096,
+      "timeout": 300
+    }
+  },
+  "integrations": {
+    "github": {
+      "enabled": true,
+      "auto_sync": true,
+      "webhooks": true
+    },
+    "slack": {
+      "enabled": true,
+      "notifications": "on_change"
+    }
+  },
+  "automation": {
+    "import_schedule": "0 0 * * 0",
+    "validation": "on_import",
+    "auto_test": true
+  }
+}
